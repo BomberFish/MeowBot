@@ -1,0 +1,5 @@
+{
+	"token": "your bot's token",
+	"clientId": "your application id",
+	"guildId": "discord server bot will be active in"
+}

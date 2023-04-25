@@ -1,0 +1,25 @@
+{
+  "name": "meowbot",
+  "version": "1.0.0",
+  "description": "meow meow meow 🐱",
+  "main": "index.js",
+  "scripts": {
+    "test": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BomberFish/MeowBot.git"
+  },
+  "keywords": [
+    "discord-bot"
+  ],
+  "author": "BomberFish",
+  "license": "AGPL-3.0-or-later",
+  "bugs": {
+    "url": "https://github.com/BomberFish/MeowBot/issues"
+  },
+  "homepage": "https://github.com/BomberFish/MeowBot#readme",
+  "dependencies": {
+    "discord.js": "^14.9.0"
+  }
+}
