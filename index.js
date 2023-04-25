@@ -45,7 +45,7 @@ client.on('interactionCreate', async interaction => {
     const { commandName } = interaction;
 
     if (commandName === 'meow') {
-        await interaction.reply('meowww :applepleading:');
+        await interaction.reply('meowww 🥺🐱');
     } else if (commandName === 'server') {
         await interaction.reply(`Server name: ${interaction.guild.name}\nTotal members: ${interaction.guild.memberCount}\nCreated on: ${interaction.guild.createdAt}\nID: ${interaction.guild.id}`);
     } else if (commandName === 'status') {
