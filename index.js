@@ -1,4 +1,4 @@
-const { SlashCommandBuilder, Routes, Client, MessageAttachment, GatewayIntentBits} = require('discord.js');
+const { SlashCommandBuilder, Routes, Client, MessageAttachment, GatewayIntentBits, ActivityType} = require('discord.js');
 const { REST } = require('@discordjs/rest');
 const { clientId, guildId, token } = require('./auth.json');
 const os = require('os');
@@ -10,14 +10,10 @@ const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBit
 // When the client is ready, run this code (only once)
 client.once('ready', () => {
     console.log('Bot ready!');
-    // why doesnt this work ;(
-  client.user.setPresence({
-    game: {
-     name: 'with the discord.js library',
-     type: 'PLAYING',
-    },
-    status: 'online',
-   });
+    client.user.setPresence({
+        activities: [{ name: `:pleading_cat:`, type: ActivityType.Streaming }],
+        status: 'online',
+    });
 });
 
 // Login to Discord with your client's token
@@ -38,21 +34,33 @@ rest.put(Routes.applicationGuildCommands(clientId, guildId), { body: commands })
     .then(() => console.log('Successfully registered slash commands!'))
     .catch(console.error);
 
+client.on('messageCreate', async message => {
+    if (message.author.bot) return;
+    if (message.content.toLowerCase().includes("meow") || message.content.toLowerCase().includes("<:pleading_cat:1093607301941829652>")) {
+        message.react("<:pleading_cat:1093607301941829652>");
+    }
+})
+
 client.on('interactionCreate', async interaction => {
   console.log("Received a command!")
     if (!interaction.isChatInputCommand()) return;
 
     const { commandName } = interaction;
 
-    if (commandName === 'meow') {
-        await interaction.reply('meowww <:pleading_cat:1093607301941829652>');
-    } else if (commandName === 'server') {
-        await interaction.reply(`Server name: ${interaction.guild.name}\nTotal members: ${interaction.guild.memberCount}\nCreated on: ${interaction.guild.createdAt}\nID: ${interaction.guild.id}`);
-    } else if (commandName === 'status') {
-        await interaction.reply(`Bot is **online**\nRunning on ${os.platform()} ${os.release()}, node.js ${process.version}\nWebsocket heartbeat (ping): ${client.ws.ping}ms.\n`    );
-    } else if (commandName === 'info') {
-        await interaction.reply(`**MeowBot**\nCreated by BomberFish\nLicensed under the GNU Affero GPL v3. Source code available at https://github.com/BomberFish/MeowBot`);
-    } 
+    switch (commandName) {
+        case 'meow':
+            await interaction.reply('meowww <:pleading_cat:1093607301941829652>');
+            break;
+        case 'server':
+            await interaction.reply(`Server name: ${interaction.guild.name}\nTotal members: ${interaction.guild.memberCount}\nCreated on: ${interaction.guild.createdAt}\nID: ${interaction.guild.id}`);
+            break;
+        case 'status':
+            await interaction.reply(`Bot is **online**\nRunning on ${os.platform()} ${os.release()}, node.js ${process.version}\nWebsocket heartbeat (ping): ${client.ws.ping}ms.`);
+            break;
+        case 'info':
+            await interaction.reply(`**MeowBot**\nCreated by BomberFish\nLicensed under the GNU Affero GPL v3. Source code available at https://github.com/BomberFish/MeowBot`);
+            break;
+    }
 });
 
 client.once('reconnecting', () => {
