@@ -3,6 +3,8 @@ const { REST } = require('@discordjs/rest');
 const { clientId, guildId, token } = require('./auth.json');
 const os = require('os');
 const fs = require("fs");
+const meows = Array("meowww <:pleading_cat:1093607301941829652>", "meow", "# MEOWWWW", "meow :3", "miau", "meeow", "meowwwwwwwww")
+
 
 // Create a new client instance
 const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMembers, GatewayIntentBits.GuildIntegrations, GatewayIntentBits.GuildVoiceStates, GatewayIntentBits.GuildMessages, GatewayIntentBits.GuildMessageTyping, GatewayIntentBits.MessageContent] });
@@ -49,7 +51,7 @@ client.on('interactionCreate', async interaction => {
 
     switch (commandName) {
         case 'meow':
-            await interaction.reply('meowww <:pleading_cat:1093607301941829652>');
+            await interaction.reply(meows[Math.floor(Math.random() * meows.length)]);
             break;
         case 'server':
             await interaction.reply(`Server name: ${interaction.guild.name}\nTotal members: ${interaction.guild.memberCount}\nCreated on: ${interaction.guild.createdAt}\nID: ${interaction.guild.id}`);
