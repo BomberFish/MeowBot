@@ -11,7 +11,7 @@ const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBit
 client.once('ready', () => {
     console.log('Bot ready!');
     client.user.setPresence({
-        activities: [{ name: `:pleading_cat:`, type: ActivityType.Streaming }],
+	    activities: [{ name: `:3`, type: ActivityType.Streaming }],
         status: 'online',
     });
 });
