@@ -4,6 +4,7 @@ const { clientId, guildId, token } = require('./auth.json');
 const os = require('os');
 const fs = require("fs");
 const meows = Array("meowww <:pleading_cat:1093607301941829652>", "meow", "# MEOWWWW", "meow :3", "miau", "meeow", "meowwwwwwwww")
+const mewos = Array("mewooo <:pleading_cat:1093607301941829652>", "mewo", "# MEWOOOO", "mewo :3", "miua", "meewo", "mewooooooooo")
 
 
 // Create a new client instance
@@ -13,7 +14,7 @@ const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBit
 client.once('ready', () => {
     console.log('Bot ready!');
     client.user.setPresence({
-	    activities: [{ name: `:3`, type: ActivityType.Streaming }],
+	    activities: [{ name: `with a laser pointer`, type: ActivityType.Streaming }],
         status: 'online',
     });
 });
@@ -24,6 +25,7 @@ console.log(`Logged in!`)
 
 const commands = [
     new SlashCommandBuilder().setName('meow').setDescription('🐱'),
+    new SlashCommandBuilder().setName('mewo').setDescription('🐱'),
     new SlashCommandBuilder().setName('server').setDescription('Details of current server'),
     new SlashCommandBuilder().setName('status').setDescription('Bot status'),
     new SlashCommandBuilder().setName('info').setDescription('Bot info'),
@@ -52,6 +54,9 @@ client.on('interactionCreate', async interaction => {
     switch (commandName) {
         case 'meow':
             await interaction.reply(meows[Math.floor(Math.random() * meows.length)]);
+            break;
+        case 'mewo':
+            await interaction.reply(mewos[Math.floor(Math.random() * mewos.length)]);
             break;
         case 'server':
             await interaction.reply(`Server name: ${interaction.guild.name}\nTotal members: ${interaction.guild.memberCount}\nCreated on: ${interaction.guild.createdAt}\nID: ${interaction.guild.id}`);
