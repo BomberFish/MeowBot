@@ -3,9 +3,11 @@ const { REST } = require('@discordjs/rest');
 const { clientId, guildId, token } = require('./auth.json');
 const os = require('os');
 const fs = require("fs");
-const meows = Array("meowww <:pleading_cat:1093607301941829652>", "meow", "# MEOWWWW", "meow :3", "miau", "meeow", "meowwwwwwwww")
-const mewos = Array("mewooo <:pleading_cat:1093607301941829652>", "mewo", "# MEWOOOO", "mewo :3", "miua", "meewo", "mewooooooooo")
+const meows = Array("meowww <:pleading_cat:1093607301941829652>", "meow", "# MEOWWWW", "meow :3", "miau", "meeow", "meowwwwwwwww", "meow meow meow <:pleading_cat:1093607301941829652>", "you play like a cat 🐈 mrrp mrp meow", ":3")
+const mewos = Array("mewooo <:pleading_cat:1093607301941829652>", "mewo", "# MEWOOOO", "mewo :3", "miua", "meewo", "mewooooooooo", "mewo mewo mewo <:pleading_cat:1093607301941829652>", "you play like a cat 🐈 mrrp mrp mewo", ":3")
 
+var meowmax = Math.floor(Math.random() * (10000 - 2500 + 1) + 2500);
+var meowcount = 0
 
 // Create a new client instance
 const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMembers, GatewayIntentBits.GuildIntegrations, GatewayIntentBits.GuildVoiceStates, GatewayIntentBits.GuildMessages, GatewayIntentBits.GuildMessageTyping, GatewayIntentBits.MessageContent] });
@@ -42,6 +44,13 @@ client.on('messageCreate', async message => {
     if (message.author.bot) return;
     if (message.content.toLowerCase().includes("meow") || message.content.toLowerCase().includes("<:pleading_cat:1093607301941829652>")) {
         message.react("<:pleading_cat:1093607301941829652>");
+    }
+    if (meowcount == meowmax) {
+        if (meowcount < 5750) {
+            message.channel.send(meows[Math.floor(Math.random() * meows.length)]);
+        } else {
+            message.channel.send(mewos[Math.floor(Math.random() * mewos.length)]);
+        }
     }
 })
 
